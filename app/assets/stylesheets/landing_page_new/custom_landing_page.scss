@@ -20,6 +20,46 @@ h1, h2, h3, h4, h5, h6{
 	top: 0;
 	left: 0;
 	z-index: 99;
+	.menu_btn{
+		padding: 6px 10px;
+		border-radius: 4px;	
+    margin: 0;
+    background-color: #C2AA77;
+    line-height: 0;
+    img{
+    	height: 26px;
+    	filter: invert(1);
+    }
+	}
+	.headerDropdown{
+		position: relative;
+		background: none !important;
+		&.toggled{
+			.menu_btn{
+				border-radius: 4px 4px 0px 0px;	
+			}
+		}
+		.type-dropdown{
+			min-width: 150px;
+			position: absolute;
+			right: 0;
+			background-color: #C2AA77;
+			border-radius: 4px 0px 4px 4px;
+			a{
+				color: #fff;
+				padding: 8px 12px;
+		    font-size: 14px;
+		    font-weight: 600;
+		    text-transform: uppercase;
+				&:hover{
+					background: #c2aa77d9;
+				}
+			}
+		}
+	}
+	.phone-show{
+		display: none;
+	}
 	.header-container{
 		max-width: 1200px;
 		margin: 0 auto;
@@ -69,6 +109,8 @@ h1, h2, h3, h4, h5, h6{
 		min-height: 100vh;
 		background-color: #77b5fe;
 		padding-top: 100px;
+		display: flex;
+    align-items: center;
 		.banner-content{
 			width: 100%;
 			display: flex;
@@ -89,11 +131,11 @@ h1, h2, h3, h4, h5, h6{
 					margin: 0 auto 24px;
 					max-width: 360px;
 					//letter-spacing: 7px;
-					font-weight: 300;
+					font-weight: 400;
 					text-align: center;
 				}
 				.search-block{
-					max-width: 500px;
+					max-width: 520px;
 					display: flex;
 					align-items: center;
 					background-color: #fff;
@@ -132,10 +174,10 @@ h1, h2, h3, h4, h5, h6{
 						align-items: center;
 					}
 					.where{
-						width: 40%;
+						width: 35%;
 					} 
 					.when{
-						width: 30%;
+						width: 35%;
 					} 
 					.guests{
 						width: 30%;
@@ -216,7 +258,7 @@ h1, h2, h3, h4, h5, h6{
 				font-size: 46px;
 				color: #fff;
 				text-transform: uppercase;
-				font-weight: 300;
+				font-weight: 400;
 				line-height: normal;
 				padding-right: 70px;
 				&.dark{
@@ -294,5 +336,140 @@ h1, h2, h3, h4, h5, h6{
 
 
 
+@media screen and (max-width: 992px){
+	.landing-page {
+		.banner {
+			.banner-content {
+				.banner-img {
+					.img-block{
+						height: 400px;
+						padding: 10px 8px 10px;
+						img{
+							border-radius: 20px;
+						}
+					}
+				}
+			}
+		}
+		.future-of-work {
+			padding: 80px 0 32px;
+			.text-content{
+				.small-text {
+					p{
+						font-size: 18px;
+						line-height: 1.5;
+					}
+				}
+			}
+		}
+		.big-text {
+			h1{
+				font-size: 32px;
+    		padding-right: 0;
+			}
+		}
+	}
+}
 
 
+
+
+@media screen and (max-width: 767px){
+	.custom-header {
+		.header-container {
+			padding: 8px 16px;
+			.ct-logo {
+				img {
+			    height: 60px;
+				}
+			}
+			.header-links{
+				a{
+					display: none;
+					&.fill{
+						display: block;
+					}
+				}
+			}
+		}
+		.headerDropdown{
+			margin-left: auto;
+		}
+		.phone-show{
+			display: block;
+		}
+	}
+
+	.landing-page {
+		.banner {
+			.banner-content{
+				flex-wrap: wrap;
+				.banner-text{
+					width: 100%;
+					h1{
+						font-size: 32px;
+						letter-spacing: 1.5px;
+						line-height: normal;
+					}
+					.search-block{
+						padding: 10px 0;
+						border-radius: 40px;
+						flex-direction: column;
+						.where {
+					    width: 100%;
+					    border-bottom: 1px solid #7da7ff;
+						}
+						.when {
+					    width: 100%;
+					    border-bottom: 1px solid #7da7ff;
+						}
+					}
+				}
+				.banner-img {
+			    width: 200px;
+			    margin: 20px auto 0;
+			    .img-block{
+			    	margin: auto;
+			    	padding: 9px 6px 8px;
+			    }
+				}
+			}
+		}
+		.future-of-work {
+			padding: 80px 0 16px;
+			.text-content {
+				.small-text {
+			  	width: 100%;
+			  	p{
+			  		text-align: center;
+			  	}
+				}
+				.get-touch {
+			    margin-top: 100px;
+			    font-size: 16px;
+				}
+			}
+		}
+		.big-text {
+	    width: 100%;
+	    padding: 0;
+	    text-align: center;
+	    h1 {
+			 	font-size: 26px;
+			  padding-right: 0;
+			  a{
+			  	left: 0;
+			  	margin: 24px auto 40px;
+			  }
+			}
+		}
+		.our-customers{
+			padding: 64px 0 32px;
+			.customers-block {
+				.review-list {
+    			width: 100%;
+				}
+			}
+		}
+	}
+}

@@ -13,6 +13,20 @@
         <%= link_to 'sign up', sign_up_path%>
       <%end%>
     </div>
+    <%if logged_in? %>
+    <div class="toggle with-borders headerDropdown" id="home_toolbar-select-share-type" data-toggle='.type-dropdown'>
+    			<!-- <div class="toggle-header">Type</div> -->
+    			<button class="menu_btn toggle-header"><%=image_tag 'menu.png' %></button>
+			<div class="type-dropdown toggle-menu hidden">
+				<a href="#">Admin</a>
+				<a href="#">Inbox</a>
+				<div class="phone-show">
+					<%= link_to 'Become a host', new_listing_path%>
+				</div>
+				<a href="#">Logout</a>
+			</div>
+    </div>
+    <%end%>
   </div>
 </header>
 
