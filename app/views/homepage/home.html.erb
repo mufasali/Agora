@@ -1,121 +1,120 @@
+<%maps_key = MarketplaceHelper.google_maps_key(@current_community.id)%>
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{maps_key}&libraries=places"%>
+
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <header class="custom-header">
-	<div class="header-container">
-		<a href="#" class="ct-logo"><%=image_tag 'WebsiteLogo.png' %></a>
-		<div class="header-links">
-			<a href="#">Become a host</a>
-			<a href="#" class="fill">login</a>
-			<a href="#">sign up</a>
-		</div>
-	</div>
+  <div class="header-container">
+    <a href="#" class="ct-logo"><%=image_tag 'WebsiteLogo.png' %></a>
+    <div class="header-links">
+      <%= link_to 'Become a host', new_listing_path%>
+      <%unless logged_in? %>
+        <%= link_to 'login', login_path, class: 'fill'%>
+        <%= link_to 'sign up', sign_up_path%>
+      <%end%>
+    </div>
+  </div>
 </header>
 
 <div class="landing-page">
-	<section class="banner">
-		<div class="custom-container">
-			<div class="banner-content">
-				<div class="banner-text">
-					<h4>agora work</h4>
-					<h1>work from anywhere</h1>
-					<div class="search-block">
-						<div class="where">
-							<label for="">Where</label>
-							<input type="text" name="" placeholder="search destination">
-						</div>
-						<div class="when">
-							<label for="">When</label>
-							<!-- <input type = "text" id="datepicker" placeholder="duration"> -->
-							<input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
-						</div>
-						<div class="guests">
-							<label for="">guests</label>
-							<select name="number" id="number">
-					      <option>add guests</option>
-					      <option>1</option>
-					      <option>2</option>
-					      <option>3</option>
-					      <option>4</option>
-					      <option>5</option>
-					    </select>
-						</div>
-					</div>
-					<p>Working from home not working out? Book a coworking space or private office</p>
-					<span>Get a space for a day, a week, or however long you need</span>
-				</div>
-				<div class="banner-img">
-					<div class="img-block">
-						<%=image_tag 'banner-img.jpg' %>
-					</div>
-				</div>
-			</div>
-		</div>		
-	</section>
-	<section class="future-of-work">
-		<div class="custom-container">
-			<div class="text-content">
-				<div class="big-text">
-					<h1>THE <span>future</span> of work</h1>
-				</div>
-				<div class="small-text">
-					<p>Remote work is no longer the future of work, it's the standard. Empower your teams to work remotely with access to a network of coworking spaces. Whether you’re meeting with clients in another city or with the team in the city’s south side, our corporate plans save you time, costs, and is hassle free</p>
-				</div>
-				<p class="get-touch">get in touch <a href="#">corporate@agorawork.co</a></p>
-			</div>
-		</div>
-	</section>
-	<section class="our-customers">
-		<div class="custom-container">
-			<div class="customers-block">
-				<div class="big-text">
-					<h1 class="dark">
-						what our <span class="white">customers</span> are saying
-						<a href="#">sign up</a>
-					</h1>
-				</div>
-				<div class="review-list">
-					<ul>
-						<li>
-							<p>Working from home started to feel a lot like quarantine. I felt lonely and really needed a change. Agora helped.</p>
-							<h4>Amanda Bennett, social media Manager</h4>
-						</li>
-						<li>
-							<p>Meeting clients at Starbucks felt wrong but signing a long term office felt worse. Agora is the perfect medium</p>
-							<h4>Jiara Hassan, entrepreneur</h4>
-						</li>
-						<li>
-							<p>I love the flexibility of working from wherever the day takes me</p>
-							<h4>Chun Hei Kim, Web Designer</h4>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
+  <section class="banner">
+    <div class="custom-container">
+      <div class="banner-content">
+        <%= form_tag search_path, method: :get, id: "homepage-filters", class: 'banner-text' do %>
+          <h4>agora work</h4>
+          <h1>work from anywhere</h1>
+          <div class="search-block">
+            <div class="where">
+              <label for="">Where</label>
+              <%= text_field_tag :lq, params[:lq], :placeholder => 'search destination' %>
+              <%= hidden_field_tag 'lc', params[:lc]%>
+              <%= hidden_field_tag 'ls', ''%>
+              <%= hidden_field_tag 'boundingbox', params[:boundingbox]%>
+              <%= hidden_field_tag 'distance_max', ''%>
+            </div>
+            <div class="when">
+              <label for="">When</label>
+              <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+            </div>
+            <div class="guests">
+              <label for="">guests</label>
+              <%= select_tag :guests, options_for_select(['1', '2', '3', '4', '5']), {include_blank: 'add guests', id: 'number'} %>
+            </div>
+          </div>
+          <p>Working from home not working out? Book a coworking space or private office</p>
+          <span>Get a space for a day, a week, or however long you need</span>
+        <%end%>
+        <div class="banner-img">
+          <div class="img-block">
+            <%=image_tag 'banner-img.jpg' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="future-of-work">
+    <div class="custom-container">
+      <div class="text-content">
+        <div class="big-text">
+          <h1>THE <span>future</span> of work</h1>
+        </div>
+        <div class="small-text">
+          <p>Remote work is no longer the future of work, it's the standard. Empower your teams to work remotely with access to a network of coworking spaces. Whether you’re meeting with clients in another city or with the team in the city’s south side, our corporate plans save you time, costs, and is hassle free</p>
+        </div>
+        <p class="get-touch">get in touch <a href="#">corporate@agorawork.co</a></p>
+      </div>
+    </div>
+  </section>
+  <section class="our-customers">
+    <div class="custom-container">
+      <div class="customers-block">
+        <div class="big-text">
+          <h1 class="dark">
+            what our <span class="white">customers</span> are saying
+            <%= link_to 'sign up', sign_up_path%>
+          </h1>
+        </div>
+        <div class="review-list">
+          <ul>
+            <li>
+              <p>Working from home started to feel a lot like quarantine. I felt lonely and really needed a change. Agora helped.</p>
+              <h4>Amanda Bennett, social media Manager</h4>
+            </li>
+            <li>
+              <p>Meeting clients at Starbucks felt wrong but signing a long term office felt worse. Agora is the perfect medium</p>
+              <h4>Jiara Hassan, entrepreneur</h4>
+            </li>
+            <li>
+              <p>I love the flexibility of working from wherever the day takes me</p>
+              <h4>Chun Hei Kim, Web Designer</h4>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
-
-
 <% content_for :extra_javascript do %> 
-	<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script type="text/javascript">
-		 // $(function() {
-	  //     $( "#datepicker" ).datepicker({
-	  //     	format: "dd/mm/yyyy",
-	  //     	autoclose: true
-	  //   	});
-	  //  });
+    $(function() {
+      $('input[name="daterange"]').daterangepicker({
+        opens: 'left',
+        minDate: new Date(),
+        format: 'dd/mm/yyyy',
+        autoclose: true
+      });
+    });
 
-	  
-	  $(function() {
-		  $('input[name="daterange"]').daterangepicker({
-		    opens: 'left'
-		  }, function(start, end, label) {
-		    console.log("A new date selection was made: " + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY'));
-		  });
-		});
-
+    window.ST.initializeLocationSearch({
+      form: '#homepage-filters',
+      search: '#homepage-filters [name="lq"]',
+      status: '#homepage-filters [name=ls]',
+      coordinate: '#homepage-filters [name=lc]',
+      boundingbox: '#homepage-filters [name=boundingbox]',
+      maxDistance: '#homepage-filters [name=distance_max]'
+    })
   </script>
 <% end %>

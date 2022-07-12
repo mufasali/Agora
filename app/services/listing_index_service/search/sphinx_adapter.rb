@@ -107,7 +107,19 @@ module ListingIndexService::Search
         )
 
         begin
-          DatabaseSearchHelper.success_result(models.total_entries, models, includes)
+          if search[:start_date].present? && search[:start_time].present?
+            start_time  = Time.parse(search[:start_date] +' '+ search[:start_time])
+            end_time    = start_time + 1.hours
+            new_booking = Booking.new(start_time: start_time, end_time: end_time, per_hour: true)
+
+            listings_available_in_period = models.select do |listing|
+              listing if listing.booking_available?(new_booking)
+            end
+
+            DatabaseSearchHelper.success_result(listings_available_in_period.size, listings_available_in_period, includes)
+          else
+            DatabaseSearchHelper.success_result(models.total_entries, models, includes)
+          end
         rescue ThinkingSphinx::SphinxError => e
           Result::Error.new(e)
         end

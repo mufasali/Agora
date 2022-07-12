@@ -181,7 +181,9 @@ class HomepageController < ApplicationController
       locale: I18n.locale,
       include_closed: false,
       sort: nil,
-      boundingbox: params[:boundingbox]
+      boundingbox: params[:boundingbox],
+      start_date: params[:start_date],
+      start_time: params[:start_time]
     }
 
     if @view_type != 'map' && location_search_in_use

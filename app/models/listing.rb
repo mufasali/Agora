@@ -394,4 +394,8 @@ class Listing < ApplicationRecord
     ids = listings.pluck(:id)
     ListingImage.where(listing_id: ids).destroy_all
   end
+
+  def booking_available?(booking)
+    working_hours_covers_booking?(booking) && bookings.covers_another_booking_per_hour(booking).empty?
+  end
 end
