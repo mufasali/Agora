@@ -135,13 +135,13 @@ h1, h2, h3, h4, h5, h6{
           text-align: center;
         }
         .search-block{
-          max-width: 520px;
+          max-width: 620px;
           display: flex;
           align-items: center;
           background-color: #fff;
           margin: 0 auto;
-          padding: 10px 0px 10px 10px;
-          border-radius: 40px 0 0 40px;
+          padding: 0px 0px 0px 10px;
+          border-radius: 40px;
           label{
             width: 100%;
             text-align: center;
@@ -181,6 +181,26 @@ h1, h2, h3, h4, h5, h6{
           } 
           .guests{
             width: 30%;
+          }
+          .serach-btn{
+						margin: 0;
+						display: flex;
+						align-items: center;
+						border-radius: 0px 40px 40px 0;
+						padding: 22px 20px;
+						background-color: #C2AA77;
+						font-size: 14px;
+						font-weight: 900;
+						text-transform: uppercase;
+						letter-spacing: .5px;
+						transition: all .2s;
+						img{
+							height: 16px;
+							margin-right: 4px;
+						}
+						&:hover{
+							filter: opacity(0.8);
+						}
           }
         }
         p{
@@ -340,7 +360,13 @@ h1, h2, h3, h4, h5, h6{
   .landing-page {
     .banner {
       .banner-content {
+				flex-wrap: wrap;
+				justify-content: center;
+      	.banner-text{
+      		width: 100%;
+      	}
         .banner-img {
+        	 margin-top: 24px;
           .img-block{
             height: 400px;
             padding: 10px 8px 10px;
@@ -412,7 +438,7 @@ h1, h2, h3, h4, h5, h6{
             line-height: normal;
           }
           .search-block{
-            padding: 10px 0;
+            padding: 10px 0 0;
             border-radius: 40px;
             flex-direction: column;
             .where {
@@ -422,6 +448,15 @@ h1, h2, h3, h4, h5, h6{
             .when {
               width: 100%;
               border-bottom: 1px solid #7da7ff;
+            }
+            .guests{
+            	width: 100%;
+            }
+            .serach-btn{
+            	width: 100%;
+            	border-radius: 0px 0px 40px 40px;
+            	justify-content: center;
+            	padding: 14px 20px;
             }
           }
         }
