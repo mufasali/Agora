@@ -23,7 +23,7 @@
           <div class="phone-show">
             <%= link_to 'Become a host', new_listing_path%>
           </div>
-          <% if @current_user.has_admin_rights?(@community)%>
+          <% if @current_user.has_admin_rights?(@current_community)%>
             <%= link_to 'Admin', '/en/admin'%>
           <% end %>          
           <%= link_to 'Logout', logout_path %>
