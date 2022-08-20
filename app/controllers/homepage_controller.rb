@@ -63,7 +63,7 @@ class HomepageController < ApplicationController
     includes =
       case @view_type
       when "grid"
-        [:author, :listing_images]
+        [:author, :listing_images, :location]
       when "list"
         [:author, :listing_images, :num_of_reviews]
       when "map"
@@ -89,9 +89,9 @@ class HomepageController < ApplicationController
                                   keyword_search_in_use: keyword_in_use,
                                   relevant_search_fields: relevant_search_fields)
 
-    if @view_type == 'map'
+    #if @view_type == 'map'
       viewport = viewport_geometry(params[:boundingbox], params[:lc], @current_community.location)
-    end
+    #end
 
     if FeatureFlagHelper.feature_enabled?(:searchpage_v1)
       search_result.on_success { |listings|

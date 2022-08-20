@@ -32,7 +32,8 @@ a, input, button {
 */
 
 body {
-  @include source-sans-pro;
+  //@include source-sans-pro;
+  font-family: FuturaL;
   @include normal-type;
 
   @include media(tiny-mobile) {
