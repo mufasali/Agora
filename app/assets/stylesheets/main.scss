@@ -6,6 +6,7 @@
 @import "compass/css3/box-shadow";
 @import "mixins/all";
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
 /**
   This file is deprecated: Put your SCSS to views/ and partials/
   and include them in application.scss.erb
@@ -33,7 +34,7 @@ a, input, button {
 
 body {
   //@include source-sans-pro;
-  font-family: FuturaL;
+  font-family: 'Noto Sans', sans-serif; 
   @include normal-type;
 
   @include media(tiny-mobile) {

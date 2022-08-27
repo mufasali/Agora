@@ -12,11 +12,15 @@
   - needs_maps = !FeatureFlagHelper.feature_enabled?(:topbar_v1) && (main_search != :keyword || @view_type.eql?("map"))
   = javascript_include_tag "//maps.googleapis.com/maps/api/js?libraries=places#{key_param}"
   = javascript_include_tag "markerclusterer.js"
-
 - content_for :extra_javascript do
   :javascript
     window.ST.initializeLocationSearch({form: '#homepage-filters', search: '#q', status: '#ls', coordinate: '#lc', boundingbox: '#boundingbox', maxDistance: '#distance_max'});  
-
+%style
+  :plain
+    .SearchBar__root__2hIPj { display: none;}
+    @media only screen and (max-width: 767px) {
+      .SearchBar__root__2hIPj { display: block; pointer-events: none; opacity: 0;}
+    }
 - content_for :title_header do
   - is_homepage = params[:controller] == "homepage" && params[:action] == "index"
   - if @big_cover_photo
@@ -65,8 +69,8 @@
 
 - else
   .main_content
-    %span.phone_map_close_btn
-      ×
+    / %span.phone_map_close_btn
+    /   ×
     - if @listings.total_entries > 0
       - if @view_type.eql?("map")
         .home-map
@@ -75,40 +79,175 @@
           = render :partial => "map", locals: { viewport: viewport }
           .listing-container
             %div.top-bars
-              %span.phone-view-filter
-                %i.icon-filter
-                Filters
+              / %span.phone-view-filter
+              /   %i.icon-filter
+              /   Filters
+                    
+
               .visible-desktop.filters
-                #header-locales-menu.toggle.filter-btn{data: {toggle: '#filterDropdown', 'toggle-position' => 'absolute'}}
-                  %span
-                    Filters
-                    %i.icon-angle-down
-                #filterDropdown.toggle-menu.hidden
-                  = link_to t("homepage.filters.all_categories"), search_path(search_params.merge({category: "all"})), :class => "home-categories-main #{if selected_category.nil? then 'selected' end}"
+                .toggle#home_toolbar-select-share-type{data: {toggle: '.category-dropdown'}}
+                  .filter-btn
+                    Category
 
-                %div.search_block
-                  = text_field_tag "keyword", params[:keyword], :placeholder => (@community_customization && @community_customization.search_placeholder) || t("homepage.index.what_do_you_need"), class: 'location_search'
-                  = text_field_tag 'q', params[:q], :placeholder => t("homepage.home.location"), class: 'keyword_search'
-                  = hidden_field_tag 'lc', params[:lc]
-                  = hidden_field_tag 'ls', ''
-                  = hidden_field_tag 'boundingbox', params[:boundingbox]
-                  = hidden_field_tag 'distance_max', ''                  
-                  %button=t("homepage.home.search")
+                  .dropdownMenu.category-dropdown.toggle-menu.hidden
+                    %ul.categories
+                      %li
+                        %a{:herf=>"#"}
+                          House
+                      %li
+                        %a{:herf=>"#"}
+                          Condo
+                      %li
+                        %a{:herf=>"#"}
+                          Townhome
+                      %li
+                        %a{:herf=>"#"}
+                          Apartment
+                      %li
+                        %a{:herf=>"#"}
+                          Other
+                .toggle#home_toolbar-select-share-type{data: {toggle: '.price-dropdown'}}
+                  .filter-btn
+                    Price
+                  .dropdownMenu.price-dropdown.toggle-menu.hidden
+                    .price_range
+                      = render partial: "price_range"
+
+                .toggle#home_toolbar-select-share-type{data: {toggle: '.keyword-dropdown'}}
+                  .filter-btn
+                    Keyword
+                  .dropdownMenu.keyword-dropdown.toggle-menu.hidden
+                    %div.search_block
+                      = text_field_tag "keyword", params[:keyword], :placeholder => (@community_customization && @community_customization.search_placeholder) || t("homepage.index.what_do_you_need"), class: 'location_search'
+                      = text_field_tag 'q', params[:q], :placeholder => 'Location', class: 'keyword_search'
+                      = hidden_field_tag 'lc', params[:lc]
+                      = hidden_field_tag 'ls', ''
+                      = hidden_field_tag 'boundingbox', params[:boundingbox]
+                      = hidden_field_tag 'distance_max', ''                  
+                      %button
+                        Search
+                .toggle#home_toolbar-select-share-type{data: {toggle: '.date-dropdown'}}
+                  .filter-btn
+                    Date
+                  .dropdownMenu.date-dropdown.toggle-menu.hidden
+                    #Datepicker
+                    .datepick_text
+                      %span.dt
+                        %b
+                          Checkin:
+                        %label#checkinDate
+                      %span.dt
+                        %b
+                          Checkout:
+                        %label#checkoutDate
+                    - content_for :extra_javascript do
+                      :javascript
+                        /** Display Checkin Datepicker and Checkout DatePicker */
+                        datePicker();
+                        function datePicker(){
+                           $(document).ready(function(){
+                              $( "#Datepicker" ).datepicker({
+                                 dateFormat: "MM d, yy",
+                           minDate: 0,
+                           maxDate: "+3M +0D", 
+                                 beforeShowDay: dateRange,
+                           onSelect: DRonSelect
+                              });
+                           });
+                        }
+
+                        function dateRange(date){
+                           var date1 = $.datepicker.parseDate("MM d, yy", $("#checkinDate").text());
+                           var date2 = $.datepicker.parseDate("MM d, yy", $("#checkoutDate").text());
+                           var isHighlight = date1 && ((date.getTime() == date1.getTime()) || (date2 && date >= date1 && date <= date2));
+                              $(document).ready(function(){
+                          // $("td.dp-highlight").text("Y");
+
+                        });
+                           return [true, isHighlight ? "dp-highlight" : ""];
+                        }
+
+                        function DRonSelect(dateText, inst) {
+                           var date1 = $.datepicker.parseDate("MM d, yy", $("#checkinDate").text());
+                           var date2 = $.datepicker.parseDate("MM d, yy", $("#checkoutDate").text());
+                              if (!date1 || date2) {
+                                 $("#checkinDate").text(dateText);
+                           $("#checkoutDate").text("");
+                                 $("#Datepicker").datepicker();
+                              } 
+                              else {
+                                 if ( $.datepicker.parseDate("MM d, yy", $("#checkinDate").text()) >= 
+                        $.datepicker.parseDate("MM d, yy", dateText)) {
+                                    $("#checkinDate").text(dateText);
+                                    $("#checkoutDate").text("");
+                                    $("#Datepicker").datepicker();
+                                 }
+                                 else {
+                              $("#checkoutDate").text(dateText);
+                                    $("#Datepicker").datepicker();
+                                 }
+                              }   
+                        }
+                      
+                .toggle#home_toolbar-select-share-type{data: {toggle: '.checkbox-dropdown'}}
+                  .filter-btn
+                    Checkbox
+                  .dropdownMenu.checkbox-dropdown.toggle-menu.hidden
+                    .checkbox-block
+                      %label.customCheckbox
+                        One
+                        %input{:type => "checkbox"}/
+                        %span.checkmark
+                      %label.customCheckbox
+                        Two
+                        %input{:type => "checkbox"}/
+                        %span.checkmark
+                      %label.customCheckbox
+                        Three
+                        %input{:type => "checkbox"}/
+                        %span.checkmark
+                      %label.customCheckbox
+                        Four
+                        %input{:type => "checkbox"}/
+                        %span.checkmark
+                      %label.customCheckbox
+                        Five
+                        %input{:type => "checkbox"}/
+                        %span.checkmark
+                      
 
 
-              .switch-bar
-                %span.switch_text
-                  Hide Map
-                %label.switch
-                  %input.switch-input{:checked => "checked", :type => "checkbox"}/
-                  %span.slider.round
+                / #header-locales-menu.toggle.filter-btn{data: {toggle: '#filterDropdown', 'toggle-position' => 'absolute'}}
+                /   %span
+                /     Filters
+                /     %i.icon-angle-down
+                / #filterDropdown.toggle-menu.hidden
+                /   = link_to t("homepage.filters.all_categories"), search_path(search_params.merge({category: "all"})), :class => "home-categories-main #{if selected_category.nil? then 'selected' end}"
 
-              .switch-bar.phone_view
-                %span.phone_switch_text
-                  See Map
-                %label.switch
-                  %input.switch-input{:type => "range"}/
-                  %span.slider.round
+                / %div.search_block
+                /   = text_field_tag "keyword", params[:keyword], :placeholder => (@community_customization && @community_customization.search_placeholder) || t("homepage.index.what_do_you_need"), class: 'location_search'
+                /   = text_field_tag 'q', params[:q], :placeholder => t("homepage.home.location"), class: 'keyword_search'
+                /   = hidden_field_tag 'lc', params[:lc]
+                /   = hidden_field_tag 'ls', ''
+                /   = hidden_field_tag 'boundingbox', params[:boundingbox]
+                /   = hidden_field_tag 'distance_max', ''                  
+                /   %button
+                /     Search
+
+
+                .switch-bar
+                  %span.switch_text
+                    Hide Map
+                  %label.switch
+                    %input.switch-input{:checked => "checked", :type => "checkbox"}/
+                    %span.slider.round
+
+              / .switch-bar.phone_view
+              /   %span.phone_switch_text
+              /     See Map
+              /   %label.switch
+              /     %input.switch-input{:type => "range"}/
+              /     %span.slider.round
 
             .ls_container
               = render partial: "grid_item_new", collection: @listings, as: :listing, locals: { show_distance: location_search_in_use }
@@ -162,4 +301,3 @@
       document.body.classList.remove('body_scroll');
       phone_map_close_btn.classList.remove('show');
     })
-
