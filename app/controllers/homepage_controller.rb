@@ -73,7 +73,7 @@ class HomepageController < ApplicationController
       end
 
     main_search = search_mode
-    enabled_search_modes = search_modes_in_use(params[:q], params[:lc], main_search)
+    enabled_search_modes = search_modes_in_use(params[:keyword], params[:lc], main_search)
     keyword_in_use = enabled_search_modes[:keyword]
     location_in_use = enabled_search_modes[:location]
 
@@ -172,7 +172,7 @@ class HomepageController < ApplicationController
       categories: filter_params[:categories],
       listing_shape_ids: Array(filter_params[:listing_shape]),
       price_cents: filter_range(params[:price_min], params[:price_max]),
-      keywords: keyword_search_in_use ? params[:q] : nil,
+      keywords: keyword_search_in_use ? (params[:keyword]) : nil,
       fields: relevant_search_fields,
       per_page: listings_per_page,
       page: current_page,

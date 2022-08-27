@@ -69,8 +69,6 @@
 
 - else
   .main_content
-    / %span.phone_map_close_btn
-    /   ×
     - if @listings.total_entries > 0
       - if @view_type.eql?("map")
         .home-map
@@ -79,43 +77,30 @@
           = render :partial => "map", locals: { viewport: viewport }
           .listing-container
             %div.top-bars
-              / %span.phone-view-filter
-              /   %i.icon-filter
-              /   Filters
-                    
-
               .visible-desktop.filters
-                .toggle#home_toolbar-select-share-type{data: {toggle: '.category-dropdown'}}
-                  .filter-btn
-                    Category
-
-                  .dropdownMenu.category-dropdown.toggle-menu.hidden
-                    %ul.categories
-                      %li
-                        %a{:herf=>"#"}
-                          House
-                      %li
-                        %a{:herf=>"#"}
-                          Condo
-                      %li
-                        %a{:herf=>"#"}
-                          Townhome
-                      %li
-                        %a{:herf=>"#"}
-                          Apartment
-                      %li
-                        %a{:herf=>"#"}
-                          Other
+                -# Category filter
+                - if @category_menu_enabled && @main_categories.count > 1
+                  .toggle#home_toolbar-select-share-type{data: {toggle: '.category-dropdown'}}
+                    .filter-btn
+                      = t("homepage.index.category_filter_heading")
+                    .dropdownMenu.category-dropdown.toggle-menu.hidden
+                      %ul.categories
+                        %li
+                          = link_to t("homepage.filters.all_categories"), search_path(search_params.merge({category: "all"}))
+                        - @main_categories.each do |category|
+                          %li
+                            = link_to @category_display_names[category.id], search_path(search_params.merge({category: category}))
+                -# Price filter
                 .toggle#home_toolbar-select-share-type{data: {toggle: '.price-dropdown'}}
                   .filter-btn
-                    Price
+                    = t("homepage.index.price_filter_heading")
                   .dropdownMenu.price-dropdown.toggle-menu.hidden
                     .price_range
                       = render partial: "price_range"
-
+                -# Keyword filter
                 .toggle#home_toolbar-select-share-type{data: {toggle: '.keyword-dropdown'}}
                   .filter-btn
-                    Keyword
+                    = t("homepage.index.keyword_filter_heading")
                   .dropdownMenu.keyword-dropdown.toggle-menu.hidden
                     %div.search_block
                       = text_field_tag "keyword", params[:keyword], :placeholder => (@community_customization && @community_customization.search_placeholder) || t("homepage.index.what_do_you_need"), class: 'location_search'
@@ -125,21 +110,21 @@
                       = hidden_field_tag 'boundingbox', params[:boundingbox]
                       = hidden_field_tag 'distance_max', ''                  
                       %button
-                        Search
+                        = t("homepage.index.search_button_text")
                 .toggle#home_toolbar-select-share-type{data: {toggle: '.date-dropdown'}}
                   .filter-btn
-                    Date
+                    = t("homepage.index.date_filter_heading")
                   .dropdownMenu.date-dropdown.toggle-menu.hidden
                     #Datepicker
                     .datepick_text
                       %span.dt
-                        %b
-                          Checkin:
+                        %b= t("homepage.index.chceckin_filter_heading")
                         %label#checkinDate
+                        = hidden_field_tag :start_date, ''
                       %span.dt
-                        %b
-                          Checkout:
+                        %b= t("homepage.index.chceckout_filter_heading")
                         %label#checkoutDate
+                        = hidden_field_tag :end_date, ''
                     - content_for :extra_javascript do
                       :javascript
                         /** Display Checkin Datepicker and Checkout DatePicker */
@@ -189,7 +174,8 @@
                               }   
                         }
                       
-                .toggle#home_toolbar-select-share-type{data: {toggle: '.checkbox-dropdown'}}
+                -# Checkbox filter
+                  .toggle#home_toolbar-select-share-type{data: {toggle: '.checkbox-dropdown'}}
                   .filter-btn
                     Checkbox
                   .dropdownMenu.checkbox-dropdown.toggle-menu.hidden
@@ -214,26 +200,6 @@
                         Five
                         %input{:type => "checkbox"}/
                         %span.checkmark
-                      
-
-
-                / #header-locales-menu.toggle.filter-btn{data: {toggle: '#filterDropdown', 'toggle-position' => 'absolute'}}
-                /   %span
-                /     Filters
-                /     %i.icon-angle-down
-                / #filterDropdown.toggle-menu.hidden
-                /   = link_to t("homepage.filters.all_categories"), search_path(search_params.merge({category: "all"})), :class => "home-categories-main #{if selected_category.nil? then 'selected' end}"
-
-                / %div.search_block
-                /   = text_field_tag "keyword", params[:keyword], :placeholder => (@community_customization && @community_customization.search_placeholder) || t("homepage.index.what_do_you_need"), class: 'location_search'
-                /   = text_field_tag 'q', params[:q], :placeholder => t("homepage.home.location"), class: 'keyword_search'
-                /   = hidden_field_tag 'lc', params[:lc]
-                /   = hidden_field_tag 'ls', ''
-                /   = hidden_field_tag 'boundingbox', params[:boundingbox]
-                /   = hidden_field_tag 'distance_max', ''                  
-                /   %button
-                /     Search
-
 
                 .switch-bar
                   %span.switch_text
@@ -241,13 +207,6 @@
                   %label.switch
                     %input.switch-input{:checked => "checked", :type => "checkbox"}/
                     %span.slider.round
-
-              / .switch-bar.phone_view
-              /   %span.phone_switch_text
-              /     See Map
-              /   %label.switch
-              /     %input.switch-input{:type => "range"}/
-              /     %span.slider.round
 
             .ls_container
               = render partial: "grid_item_new", collection: @listings, as: :listing, locals: { show_distance: location_search_in_use }
