@@ -562,6 +562,9 @@ $home-list-avatar-padding: lines(0.25);
       border-color: #b2b2b2;
       box-shadow: 0 4px 8px 0 #0000001a;
     }
+    &.active{
+      background: #ff6767;
+    }
     .toggle-menu{
       font-size: 14px;
       letter-spacing: 0.5px;
@@ -889,6 +892,7 @@ $home-list-avatar-padding: lines(0.25);
 .top-bars .filter-btn.map-show-md{
   margin-left: auto;
   cursor: pointer;
+  display: none;
 }
 .phone-show-only{
   display: none;
@@ -1041,13 +1045,16 @@ $home-list-avatar-padding: lines(0.25);
       }
     }
   }
+  .top-bars .filter-btn.map-show-md{
+    display: block;
+  }
 }
 
 @media screen and (max-width: 767px){
   .phone-view-filter{
     display: flex;
   }
-  .map-show-md{
+  .top-bars .filter-btn.map-show-md{
     display: none;
   }
   .top-bars {
