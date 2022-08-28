@@ -69,6 +69,8 @@
 
 - else
   .main_content
+    %span.phone_map_close_btn.showMap
+      ×
     - if @listings.total_entries > 0
       - if @view_type.eql?("map")
         .home-map
@@ -77,6 +79,14 @@
           = render :partial => "map", locals: { viewport: viewport }
           .listing-container
             %div.top-bars
+              .phone-show-only
+                %span.filter-ic.filter-btn
+                  %i.icon-filter
+                  Filter
+                %span.show-map-sm.filter-btn.showMap
+                  %i.icon-map-marker
+                  Show Map
+
               .visible-desktop.filters
                 -# Category filter
                 - if @category_menu_enabled && @main_categories.count > 1
@@ -157,23 +167,30 @@
                            var date2 = $.datepicker.parseDate("MM d, yy", $("#checkoutDate").text());
                               if (!date1 || date2) {
                                  $("#checkinDate").text(dateText);
-                           $("#checkoutDate").text("");
+                                 $("#start_date").val(dateText);
+                                 $("#end_date").val("");
+                                 $("#checkoutDate").text("");
                                  $("#Datepicker").datepicker();
                               } 
                               else {
                                  if ( $.datepicker.parseDate("MM d, yy", $("#checkinDate").text()) >= 
                         $.datepicker.parseDate("MM d, yy", dateText)) {
                                     $("#checkinDate").text(dateText);
+                                    $("#start_date").val(dateText);
+                                    $("#end_date").val("");
                                     $("#checkoutDate").text("");
                                     $("#Datepicker").datepicker();
                                  }
                                  else {
-                              $("#checkoutDate").text(dateText);
+                                    $("#checkoutDate").text(dateText);
                                     $("#Datepicker").datepicker();
+                                    $("#end_date").val(dateText);
                                  }
-                              }   
+                              }
                         }
                       
+                %button.filter-btn
+                  Clear
                 -# Checkbox filter
                   .toggle#home_toolbar-select-share-type{data: {toggle: '.checkbox-dropdown'}}
                   .filter-btn
@@ -201,13 +218,14 @@
                         %input{:type => "checkbox"}/
                         %span.checkmark
 
+                .filter-btn.map-show-md.showMap
+                  Map Show
                 .switch-bar
                   %span.switch_text
                     Hide Map
                   %label.switch
                     %input.switch-input{:checked => "checked", :type => "checkbox"}/
                     %span.slider.round
-
             .ls_container
               = render partial: "grid_item_new", collection: @listings, as: :listing, locals: { show_distance: location_search_in_use }
             .home-loading-more
@@ -222,8 +240,15 @@
                 new_listing_path(ref: "add_listing_link"))).html_safe
 
 
-
+- content_for :extra_javascript do
   :javascript
+     $('.showMap').click(function(){
+      $(this).parents('.main_content').toggleClass('showMapContent');
+      $('.phone_map_close_btn').toggleClass('show');
+    })
+    $('.filter-ic').click(function(){
+      $('.visible-desktop.filters').slideToggle()
+    })
     let content = document.querySelector('.main_content');
     let switch_text = document.querySelector('.switch_text');
     document.querySelector('.switch-input').addEventListener('click', ()=>{
@@ -248,12 +273,14 @@
     let phone_map_close_btn = document.querySelector('.phone_map_close_btn');
     let mapview = document.querySelector('#map-canvas');
 
+
     phone_switch.addEventListener('click', ()=>{
-      mapview.classList.add('show');
+        mapview.classList.add('show');
         phone_switch_text.innerHTML= 'Hide Map';
         document.body.classList.add('body_scroll');
         phone_map_close_btn.classList.add('show');
     })
+
     phone_map_close_btn.addEventListener('click', ()=> {
       mapview.classList.remove('show');
       phone_switch_text.innerHTML= 'See Map';
