@@ -87,6 +87,7 @@ module Kassi
       'app-bundle.js',
       'vendor-bundle.js',
       'landing_page_new/base.scss',
+      'range_datepicker.js'
     ]
 
     # Read the config from the config.yml

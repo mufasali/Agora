@@ -131,6 +131,7 @@ group :development do
   gem 'zeus', '~> 0.15.13', require: false
   gem 'web-console', '~> 3.7.0'
   gem 'awesome_print', '~> 1.7.0'
+  gem "letter_opener"
 end
 
 group :test do

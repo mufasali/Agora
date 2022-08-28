@@ -121,8 +121,9 @@ module StripeService::API
       end
 
       def order_total(tx)
-        shipping_total = Maybe(tx.shipping_price).or_else(0)
-        tx.unit_price * tx.listing_quantity + shipping_total + tx.buyer_commission
+        #shipping_total = Maybe(tx.shipping_price).or_else(0)
+        #tx.unit_price * tx.listing_quantity + shipping_total + tx.buyer_commission
+        tx.payment_total
       end
 
       private
@@ -154,6 +155,7 @@ module StripeService::API
         seller_id  = seller_account[:stripe_seller_id]
         payment_method_id = gateway_fields[:stripe_payment_method_id]
 
+        binding.pry
         subtotal   = order_total(tx)
         total      = subtotal
         commission = tx.commission

@@ -22,6 +22,9 @@
 #
 
 class Booking < ApplicationRecord
+  MONTHLY_BOOKING_DAYS = 30
+  WEEKLY_BOOKING_DAYS = 7
+
   belongs_to :tx, class_name: "Transaction", foreign_key: "transaction_id", inverse_of: :booking
 
   attr_accessor :skip_validation
