@@ -93,6 +93,7 @@
 //= require listing_images
 //= require location_search
 //= require datepicker
+//= require range-datepicker
 //= require follow
 //= require paypal_account_settings
 //= require transaction

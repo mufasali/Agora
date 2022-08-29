@@ -187,3 +187,5 @@ gem "select2-rails"
 gem "cocoon"
 gem "fast-polylines"
 gem "codemirror-rails"
+gem 'geocoder'
+gem 'exception_notification'
