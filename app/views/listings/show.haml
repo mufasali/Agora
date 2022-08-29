@@ -139,19 +139,21 @@
               %span.listing-price-quantity
                 = text
         -# Weekly Price
-        .col-4
-          .listing-price
-            %span.listing-price-amount
-              = "$25"
-            %span.listing-price-quantity
-              = 'per week'
+        - if @listing.weekly_price.present? && @listing.weekly_price > 0
+          .col-4
+            .listing-price
+              %span.listing-price-amount
+                = @listing.weekly_price
+              %span.listing-price-quantity
+                = 'per week'
         -# Monthly Price
-        .col-4
-          .listing-price
-            %span.listing-price-amount
-              = "$30"
-            %span.listing-price-quantity
-              = 'per month'                               
+        - if @listing.monthly_price.present? && @listing.monthly_price > 0
+          .col-4
+            .listing-price
+              %span.listing-price-amount
+                = @listing.monthly_price
+              %span.listing-price-quantity
+                = 'per month'
 
     .row-with-divider
       .col-12
