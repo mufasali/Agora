@@ -189,8 +189,8 @@
                               }
                         }
                       
-                %button.filter-btn
-                  Clear
+                -# Clear the search functionality
+                = link_to 'Clear', search_path, class: 'filter-btn'
                 -# Checkbox filter
                   .toggle#home_toolbar-select-share-type{data: {toggle: '.checkbox-dropdown'}}
                   .filter-btn
