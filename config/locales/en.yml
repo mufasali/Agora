@@ -2446,6 +2446,13 @@ en:
         shipping_price: "Shipping fee"
         shipping_price_additional: "Additional items"
         pickup: Pickup
+      weekly_monthly_price:
+        weekly_price: 'Weekly Price'
+        per: per
+        week: week
+        monthly_price: 'Monthly Price'
+        per: per
+        month: month        
       origin:
         location: Location
         origin: Origin
@@ -3087,6 +3094,7 @@ en:
         other: "%{count} days"
   transactions:
     initiate:
+      price_rate: "Price Rate:"
       booked_days: "Booked days:"
       booked_nights: "Booked nights:"
       booked_days_label:
@@ -3110,6 +3118,11 @@ en:
         one: "(1 hour)"
         other: "(%{count} hours)"
       start_end_time: "%{start_time} to %{end_time}"
+      monthly_price_unit_label: 'Monthly Price'
+      weekly_price_unit_label: 'Weekly Price'
+      price_weekly_rate_value_label: "Weekly Rate, %{weekly_rate} per week"
+      price_montly_rate_value_label: "Monthly Rate, %{monthly_rate} per week"
+      price_daily_rate_value_label: "Day Rate x %{duration_label}, %{daily_rate} per day"
     price_per_quantity: "Price per %{unit_type}:"
     price: "Price:"
     quantity: "Quantity: %{quantity}"

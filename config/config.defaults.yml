@@ -544,6 +544,7 @@ development:
 
   paypal_implementation: real
   fakepal_store: 'tmp/dev_fakepal.store'
+  mail_delivery_method: letter_opener
 
 test:
   <<: *default_settings

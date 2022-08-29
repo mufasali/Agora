@@ -130,6 +130,7 @@
   %aside.col-4
     - if @listing.price
       .row
+        -# Daily Price
         .col-4
           .listing-price
             %span.listing-price-amount
@@ -137,6 +138,20 @@
             - with_quantity_text(@current_community, @listing) do |text|
               %span.listing-price-quantity
                 = text
+        -# Weekly Price
+        .col-4
+          .listing-price
+            %span.listing-price-amount
+              = "$25"
+            %span.listing-price-quantity
+              = 'per week'
+        -# Monthly Price
+        .col-4
+          .listing-price
+            %span.listing-price-amount
+              = "$30"
+            %span.listing-price-quantity
+              = 'per month'                               
 
     .row-with-divider
       .col-12
