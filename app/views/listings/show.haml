@@ -143,17 +143,17 @@
           .col-4
             .listing-price
               %span.listing-price-amount
-                = @listing.weekly_price
+                = MoneyViewUtils.to_humanized(@listing.weekly_price)
               %span.listing-price-quantity
-                = 'per week'
+                = t(".per_week")
         -# Monthly Price
         - if @listing.monthly_price.present? && @listing.monthly_price > 0
           .col-4
             .listing-price
               %span.listing-price-amount
-                = @listing.monthly_price
+                = MoneyViewUtils.to_humanized(@listing.monthly_price)
               %span.listing-price-quantity
-                = 'per month'
+                = t(".per_month")
 
     .row-with-divider
       .col-12

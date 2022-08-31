@@ -2053,6 +2053,8 @@ en:
       date_filter_heading: 'Date'
       chceckin_filter_heading: 'Checkin:'
       chceckout_filter_heading: 'Checkout:'
+      filter: 'Filter'
+      show_map: 'Show Map'
     invitation_form:
       email: "Email address(es)"
       message: "A personal message"
@@ -2608,6 +2610,8 @@ en:
       pickup: Pickup
       pickup_no_price: Pickup
       youtube_video_player: "YouTube video player"
+      per_week: 'per week'
+      per_month: 'per month'
     unit_types:
       piece: piece
       hour: hour

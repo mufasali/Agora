@@ -163,10 +163,19 @@ h1, h2, h3, h4, h5, h6{
             text-align: center;
             text-transform: uppercase;
             color: #77B5FE;
+            text-align-last: center;
             font-size: 14px;
             &::placeholder{
               color: #77B5FE;
             }
+          }
+          select{
+            &:option {
+              text-align-last: center;
+            }
+          }
+          input:focus::placeholder {
+            color: transparent;
           }
           .where, .when, .guests{
             display: flex;

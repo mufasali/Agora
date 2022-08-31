@@ -2239,3 +2239,12 @@ figure.fluidratio {
 .recaptcha {
   margin-top: 8px;
 }
+
+.reset-filter{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img{
+    height: 18px;
+  }
+}

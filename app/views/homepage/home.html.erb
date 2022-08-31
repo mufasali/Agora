@@ -51,11 +51,11 @@
             </div>
             <div class="when">
               <label for="">When</label>
-              <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+              <input type="text" name="daterange" value="" placeholder="Select Date" />
             </div>
             <div class="guests">
               <label for="">guests</label>
-              <%= select_tag :guests, options_for_select(['1', '2', '3', '4', '5']), {include_blank: 'add guests', id: 'number'} %>
+              <%= select_tag :guests, options_for_select(['1', '2', '3', '4', '5']), {include_blank: '-- add guests --', id: 'number'} %>
             </div>
             <input type="submit" hidden />
             <button class="serach-btn"><%=image_tag 'search.svg' %> SEARCH</button>
@@ -120,10 +120,12 @@
   <script type="text/javascript">
     $(function() {
       $('input[name="daterange"]').daterangepicker({
+        autoUpdateInput: false,
         opens: 'left',
         minDate: new Date(),
         format: 'dd/mm/yyyy',
-        autoclose: true
+        autoclose: true,
+        cancelLabel: 'Clear'
       });
     });
 

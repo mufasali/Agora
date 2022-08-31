@@ -83,10 +83,10 @@
               .phone-show-only
                 %span.filter-ic.filter-btn
                   %i.icon-filter
-                  Filter
+                  = t("homepage.index.filter")
                 %span.show-map-sm.filter-btn.showMap
                   %i.icon-map-marker
-                  Show Map
+                  = t("homepage.index.show_map")
 
               .visible-desktop.filters
                 -# Category filter
@@ -103,14 +103,14 @@
                             = link_to @category_display_names[category.id], search_path(search_params.merge({category: category}))
                 -# Price filter
                 .toggle#home_toolbar-select-share-type{data: {toggle: '.price-dropdown'}}
-                  .filter-btn
+                  .filter-btn{class: "#{ params[:price_min] || params[:price_max] ?  'active': ''}"}
                     = t("homepage.index.price_filter_heading")
                   .dropdownMenu.price-dropdown.toggle-menu.hidden
                     .price_range
                       = render partial: "price_range"
                 -# Keyword filter
                 .toggle#home_toolbar-select-share-type{data: {toggle: '.keyword-dropdown'}}
-                  .filter-btn
+                  .filter-btn{class: "#{ params[:keyword].present? ?  'active': ''}"}
                     = t("homepage.index.keyword_filter_heading")
                   .dropdownMenu.keyword-dropdown.toggle-menu.hidden
                     %div.search_block
@@ -123,7 +123,7 @@
                       %button
                         = t("homepage.index.search_button_text")
                 .toggle#home_toolbar-select-share-type{data: {toggle: '.date-dropdown'}}
-                  .filter-btn
+                  .filter-btn{class: "#{ params[:start_date].present? ?  'active': ''}"}
                     = t("homepage.index.date_filter_heading")
                   .dropdownMenu.date-dropdown.toggle-menu.hidden
                     #Datepicker
@@ -191,7 +191,8 @@
                         }
                       
                 -# Clear the search functionality
-                = link_to 'Clear', search_path, class: 'filter-btn'
+                = link_to search_path, class: 'filter-btn reset-filter' do
+                  = image_tag 'reset-icon.png'
                 -# Checkbox filter
                   .toggle#home_toolbar-select-share-type{data: {toggle: '.checkbox-dropdown'}}
                   .filter-btn
