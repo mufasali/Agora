@@ -52,7 +52,7 @@ module TransactionService
         item_total = weekly_price
         item_total += ((unit_price * overtime) || 0) if overtime > 0
       else
-        item_total += ((unit_price * overtime) || 0)
+        item_total += ((unit_price * quantity) || 0)
       end
 
       @item_total = item_total    
