@@ -3,6 +3,7 @@
 
 - content_for :coverfade_class do
   = "without-text"
+= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
 
 - content_for :extra_javascript do
   - # maps.google can't be loaded twice
@@ -12,7 +13,9 @@
   - needs_maps = !FeatureFlagHelper.feature_enabled?(:topbar_v1) && (main_search != :keyword || @view_type.eql?("map"))
   = javascript_include_tag "//maps.googleapis.com/maps/api/js?libraries=places#{key_param}"
   = javascript_include_tag "markerclusterer.js"
-  = javascript_include_tag "range_datepicker.js"
+  =# javascript_include_tag "range_datepicker.js"
+  = javascript_include_tag "https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+  = javascript_include_tag "https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
 - content_for :extra_javascript do
   :javascript
     window.ST.initializeLocationSearch({form: '#homepage-filters', search: '#q', status: '#ls', coordinate: '#lc', boundingbox: '#boundingbox', maxDistance: '#distance_max'});  
@@ -122,73 +125,50 @@
                       = hidden_field_tag 'distance_max', ''                  
                       %button
                         = t("homepage.index.search_button_text")
-                .toggle#home_toolbar-select-share-type{data: {toggle: '.date-dropdown'}}
-                  .filter-btn{class: "#{ params[:start_date].present? ?  'active': ''}"}
-                    = t("homepage.index.date_filter_heading")
-                  .dropdownMenu.date-dropdown.toggle-menu.hidden
-                    #Datepicker
-                    .datepick_text
-                      %span.dt
-                        %b= t("homepage.index.chceckin_filter_heading")
-                        %label#checkinDate
-                        = hidden_field_tag :start_date, ''
-                      %span.dt
-                        %b= t("homepage.index.chceckout_filter_heading")
-                        %label#checkoutDate
-                        = hidden_field_tag :end_date, ''
-                    - content_for :extra_javascript do
-                      :javascript
-                        /** Display Checkin Datepicker and Checkout DatePicker */
-                        datePicker();
-                        function datePicker(){
-                           $(document).ready(function(){
-                              $( "#Datepicker" ).datepicker({
-                                 dateFormat: "MM d, yy",
-                           minDate: 0,
-                           maxDate: "+3M +0D", 
-                                 beforeShowDay: dateRange,
-                           onSelect: DRonSelect
-                              });
-                           });
-                        }
+                .toggle#home_toolbar-select-share-type
+                  = text_field_tag :daterange, '', autocomplete: false, placeholder: 'Select Date', style: "text-align: center;", readonly: true
+                  = hidden_field_tag :start_date, params[:start_date]
+                  = hidden_field_tag :end_date, params[:end_date]
 
-                        function dateRange(date){
-                           var date1 = $.datepicker.parseDate("MM d, yy", $("#checkinDate").text());
-                           var date2 = $.datepicker.parseDate("MM d, yy", $("#checkoutDate").text());
-                           var isHighlight = date1 && ((date.getTime() == date1.getTime()) || (date2 && date >= date1 && date <= date2));
-                              $(document).ready(function(){
-                          // $("td.dp-highlight").text("Y");
+                  - content_for :extra_javascript do
+                    :javascript
+                      $(function() {
+                        var startDate = "#{params[:start_date]}";
+                        var endDate = "#{params[:end_date]}";
 
+                        $('input[name="daterange"]').daterangepicker({
+                          autoUpdateInput: false,
+                          opens: 'left',
+                          minDate: new Date(),
+                          format: 'YYYY/MM/DD',
+                          autoclose: true,
+                          cancelLabel: 'Clear'
                         });
-                           return [true, isHighlight ? "dp-highlight" : ""];
+
+                        // Set default start date
+                        if(startDate != '' && endDate != ''){
+                          $('input[name="daterange"]').daterangepicker({
+                            startDate: new Date(startDate), 
+                            endDate: new Date(endDate)
+                          });
                         }
 
-                        function DRonSelect(dateText, inst) {
-                           var date1 = $.datepicker.parseDate("MM d, yy", $("#checkinDate").text());
-                           var date2 = $.datepicker.parseDate("MM d, yy", $("#checkoutDate").text());
-                              if (!date1 || date2) {
-                                 $("#checkinDate").text(dateText);
-                                 $("#start_date").val(dateText);
-                                 $("#end_date").val("");
-                                 $("#checkoutDate").text("");
-                                 $("#Datepicker").datepicker();
-                              } 
-                              else {
-                                 if ( $.datepicker.parseDate("MM d, yy", $("#checkinDate").text()) >= 
-                        $.datepicker.parseDate("MM d, yy", dateText)) {
-                                    $("#checkinDate").text(dateText);
-                                    $("#start_date").val(dateText);
-                                    $("#end_date").val("");
-                                    $("#checkoutDate").text("");
-                                    $("#Datepicker").datepicker();
-                                 }
-                                 else {
-                                    $("#checkoutDate").text(dateText);
-                                    $("#Datepicker").datepicker();
-                                    $("#end_date").val(dateText);
-                                 }
-                              }
-                        }
+                        setTimeout(applyClick, 4000);
+
+                        function applyClick(){
+                          $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+                            $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+
+                            // Set Start End date values
+                            $('#start_date').val(picker.startDate.format('YYYY/MM/DD'));
+                            $('#end_date').val(picker.endDate.format('YYYY/MM/DD'));
+
+                            //submit form
+                            console.log('--submitting...')
+                            $('#homepage-filters').submit();
+                          });
+                        };                       
+                      });                      
                       
                 -# Clear the search functionality
                 = link_to search_path, class: 'filter-btn reset-filter' do

@@ -52,6 +52,8 @@
             <div class="when">
               <label for="">When</label>
               <input type="text" name="daterange" value="" placeholder="Select Date" />
+              <%= hidden_field_tag :start_date, ''%>
+              <%= hidden_field_tag :end_date, ''%>
             </div>
             <div class="guests">
               <label for="">guests</label>
@@ -123,9 +125,17 @@
         autoUpdateInput: false,
         opens: 'left',
         minDate: new Date(),
-        format: 'dd/mm/yyyy',
+        format: 'YYYY/MM/DD',
         autoclose: true,
         cancelLabel: 'Clear'
+      });
+
+      $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+
+        // Set Start End date values
+        $('#start_date').val(picker.startDate.format('YYYY/MM/DD'));
+        $('#end_date').val(picker.endDate.format('YYYY/MM/DD'));
       });
     });
 
