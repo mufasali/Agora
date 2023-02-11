@@ -1,3 +1,191 @@
+<a name="readme-top"></a>
+# Agora Work
+[![Contributors][contributors-shield]][contributors-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#design">Design</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#sharetribe">Sharetribe</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
+Agora Work offers individuals and organisations the ability to book a co-working space or private office on-demand, supporting the transition to work from anywhere.
+The related info, including how to deploy locally, how the system is designed, and what is built atop (in terms of custom features) will be discussed below 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+### Built With
+
+[![Node][node.js]][Node-url]
+[![React][React.js]][React-url]
+[![JQuery][JQuery.com]][JQuery-url]
+[![Ruby][Ruby-on-rails]][rubyonrails]
+
+### Design
+This segment provides a detailed description of the system design for a Agora Work, which is hosted on the Sharetribe backbone. The system will allow users to rent out work spaces or provide workspaces to other users, similar to Airbnb.
+
+#### System Overview:
+The system will consist of a web-based front-end, a server-side application, and a database to store all the information related to the items and services being rented. The front-end will allow users to view available workspaces, make reservations, and communicate with each other. The server-side application will handle user authentication, payment processing, listing processing/retrieval, and data management. The database will store information such as user profiles, listings, and reservation details.
+
+#### User authentication:
+Users will be able to sign up for the system using email and password, or by connecting with their existing social media accounts. The system will also have a secure password storage mechanism to ensure the protection of user data.
+
+#### Item and Service Listings:
+Users will be able to list their workspaces for rent. They will be able to provide detailed information such as the location description, rental cost, availability dates, and images. The system will also have a search feature that allows users to search for a workspace based on location, date, and number of people.
+
+#### Reservations:
+Users will be able to make reservations against listings by selecting the date/location they want to rent, and then making a payment through the system. The system will send notifications to both the renter and the owner when a reservation is made, and also provide a means for them to communicate with each other.
+
+#### Payment Processing:
+The system will use a secure payment gateway to process payments from renters to owners. The payment gateway will handle the transfer of funds and provide a receipt for both the renter and owner.
+
+#### Data Management:
+The system will store all the information related to users, listings and reservations in a database. The database will be optimized for fast retrieval of information, and will be backed up regularly to ensure data integrity.
+
+#### Security:
+The system will use secure socket layer (SSL) encryption for all communications between the front-end and server-side application to ensure the protection of sensitive data. The database will also be secured to prevent unauthorized access to user information.
+
+#### File Structure for Ruby on Rails Projects:
+<table>
+<thead>
+<tr>
+<th>File/Folder</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>app/</td>
+<td>Contains the controllers, models, views, helpers, mailers, channels, jobs, and assets for your application. You'll focus on this folder for the remainder of this guide.</td>
+</tr>
+<tr>
+<td>bin/</td>
+<td>Contains the <code>rails</code> script that starts your app and can contain other scripts you use to set up, update, deploy, or run your application.</td>
+</tr>
+<tr>
+<td>config/</td>
+<td>Contains configuration for your application's routes, database, and more. This is covered in more detail in <a href="configuring.html">Configuring Rails Applications</a>.</td>
+</tr>
+<tr>
+<td>config.ru</td>
+<td>Rack configuration for Rack-based servers used to start the application. For more information about Rack, see the <a href="https://rack.github.io/">Rack website</a>.</td>
+</tr>
+<tr>
+<td>db/</td>
+<td>Contains your current database schema, as well as the database migrations.</td>
+</tr>
+<tr>
+<td>Gemfile<br>Gemfile.lock</td>
+<td>These files allow you to specify what gem dependencies are needed for your Rails application. These files are used by the Bundler gem. For more information about Bundler, see the <a href="https://bundler.io">Bundler website</a>.</td>
+</tr>
+<tr>
+<td>lib/</td>
+<td>Extended modules for your application.</td>
+</tr>
+<tr>
+<td>log/</td>
+<td>Application log files.</td>
+</tr>
+<tr>
+<td>public/</td>
+<td>Contains static files and compiled assets. When your app is running, this directory will be exposed as-is.</td>
+</tr>
+<tr>
+<td>Rakefile</td>
+<td>This file locates and loads tasks that can be run from the command line. The task definitions are defined throughout the components of Rails. Rather than changing <code>Rakefile</code>, you should add your own tasks by adding files to the <code>lib/tasks</code> directory of your application.</td>
+</tr>
+<tr>
+<td>README.md</td>
+<td>This is a brief instruction manual for your application. You should edit this file to tell others what your application does, how to set it up, and so on.</td>
+</tr>
+<tr>
+<td>storage/</td>
+<td>Active Storage files for Disk Service. This is covered in <a href="active_storage_overview.html">Active Storage Overview</a>.</td>
+</tr>
+<tr>
+<td>test/</td>
+<td>Unit tests, fixtures, and other test apparatus. These are covered in <a href="testing.html">Testing Rails Applications</a>.</td>
+</tr>
+<tr>
+<td>tmp/</td>
+<td>Temporary files (like cache and pid files).</td>
+</tr>
+<tr>
+<td>vendor/</td>
+<td>A place for all third-party code. In a typical Rails application this includes vendored gems.</td>
+</tr>
+<tr>
+<td>.gitattributes</td>
+<td>This file defines metadata for specific paths in a git repository. This metadata can be used by git and other tools to enhance their behavior. See the <a href="https://git-scm.com/docs/gitattributes">gitattributes documentation</a> for more information.</td>
+</tr>
+<tr>
+<td>.gitignore</td>
+<td>This file tells git which files (or patterns) it should ignore. See <a href="https://help.github.com/articles/ignoring-files">GitHub - Ignoring files</a> for more information about ignoring files.</td>
+</tr>
+<tr>
+<td>.ruby-version</td>
+<td>This file contains the default Ruby version.</td>
+</tr>
+</tbody>
+</table>
+
+#### Potential Issues with Installation:
+
+Installing Lib V8-315 On M1 Macbooks may run into this issue:<img width="1090" alt="Screenshot 2023-02-02 at 5 01 50 PM" src="https://user-images.githubusercontent.com/32026749/218285442-a9ce67e1-ba7b-401e-a777-e39407057fdc.png">
+
+#### Additional Installation Instructions:
+
+Configuaring MySQL post installation: 
+sudo mysql -u root
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'test'; 
+Change 'Test' To any password and then enter that password in database.yml file
+
+#### Landing Page Changes:
+To make landing Page Changes edit the css file in assets/stylesheets/custom_landing_page_css and the html file in views/homepage/home.html.erb 
+
+#### Conclusion:
+This system design document provides a high-level overview of the features and architecture of an Airbnb-like, workspace reservation platform, specifically Agora Work. The system will provide a platform for users and organizations to rent out workspaces to each other, and will have features such as user authentication, payment processing, listing management, and data management.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+To get the project going locally, please see the Sharetribe section below
+
+----------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------
+<!-- Sharetribe -->
 # Sharetribe
 
 [![CircleCI](https://circleci.com/gh/sharetribe/sharetribe/tree/master.svg?style=svg)](https://circleci.com/gh/sharetribe/sharetribe/tree/master) [![Code Climate](https://codeclimate.com/github/sharetribe/sharetribe.png)](https://codeclimate.com/github/sharetribe/sharetribe)
@@ -486,3 +674,119 @@ The forum is a great place to ask support and help for example with issues durin
 ## License
 
 Sharetribe Go is source-available under the Sharetribe Community Public License. See [LICENSE](LICENSE) for details.
+
+
+----------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------
+
+
+<!-- Potential Issues EXAMPLES -->
+## Potential Issues (environment/deployment)
+- 
+-
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+- [x] Add Landing Page
+- [x] Add customized search bar (number of guests provided as option
+- [x] Add Payment processing for booking
+- [x] Add Weekly, Monthly, Daily booking options 
+- [ ] Customize Landing Page
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTACT -->
+## Contact
+
+Mustafa Ali - mustafa.abdi.ali@gmail.com
+
+Project Link: https://github.com/mufasali/Agora
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+
+* [Choose an Open Source License](https://choosealicense.com)
+* [RAILS Getting Started Guide](https://guides.rubyonrails.org/getting_started.html)
+* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
+* [Malven's Grid Cheatsheet](https://grid.malven.co/)
+* [Img Shields](https://shields.io)
+* [GitHub Pages](https://pages.github.com)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/badge/contributors-74-green?style=for-the-badge
+[contributors-url]: https://github.com/mufasali/Agora/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
+[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
+[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
+[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/mustafa1ali
+[product-screenshot]: https://user-images.githubusercontent.com/33502114/216170331-a4935911-82a7-4ce3-b03a-d2274ed85b52.png
+[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Node.js]: https://img.shields.io/badge/node.js-000000?style=for-the-badge&logo=nodedotjs&logoColor=white
+[Next-url]: https://nextjs.org/
+[Node-url]: https://nodejs.org/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
+[Vue-url]: https://vuejs.org/
+[Ruby-on-rails]:https://img.shields.io/badge/Ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=white
+[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
+[Angular-url]: https://angular.io/
+[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
+[Svelte-url]: https://svelte.dev/
+[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Laravel-url]: https://laravel.com
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap-url]: https://getbootstrap.com
+[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
+[JQuery-url]: https://jquery.com 
+[rubyonrails]:rubyonrails.org
